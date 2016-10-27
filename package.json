@@ -4,42 +4,28 @@
   "description": "Observable queries.",
   "main": "lib/index.js",
   "scripts": {
-    "prepublish": "npm run eslint && npm run build && npm run bundle",
-    "build": "rm -rf lib && babel src --out-dir lib",
-    "bundle": "rm -rf bundles && webpack",
-    "test": "jest",
-    "eslint": "eslint src/**"
+    "build": "rm -rf lib && tsc --outDir lib --declaration --sourceMap",
+    "pre-jest": "rm -rf test && tsc --outDir test",
+    "jest": "jest",
+    "test": "npm run pre-jest && npm run jest"
   },
   "repository": {
-    "type": "git",
-    "url": "https://github.com/stephenbunch/rethinkql"
+    "url": "https://github.com/stephenbunch/rethinkql",
+    "type": "git"
   },
   "author": "Stephen Bunch",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.14.0",
-    "babel-eslint": "^6.1.2",
-    "babel-jest": "^15.0.0",
-    "babel-loader": "^6.2.5",
-    "babel-plugin-transform-export-extensions": "^6.8.0",
-    "babel-plugin-transform-function-bind": "^6.8.0",
-    "babel-polyfill": "^6.13.0",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-stage-2": "^6.13.0",
-    "eslint": "^3.5.0",
-    "eslint-config-airbnb": "^11.1.0",
-    "eslint-plugin-import": "^1.14.0",
-    "eslint-plugin-jsx-a11y": "^2.2.1",
-    "eslint-plugin-react": "^6.2.0",
-    "jest": "^15.1.1",
-    "webpack": "^1.13.2"
+    "@types/jest": "^15.1.32",
+    "babel-preset-es2015": "^6.18.0",
+    "jest": "^16.0.1",
+    "typescript": "^2.0.6"
   },
   "jest": {
-    "coverageDirectory": "./coverage/",
+    "coverageDirectory": "coverage/",
     "collectCoverage": true,
     "testPathDirs": [
-      "<rootDir>/src/"
-    ],
-    "testRegex": "\\.spec\\.js$"
+      "test/"
+    ]
   }
 }

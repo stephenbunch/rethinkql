@@ -1,7 +1,5 @@
-/* global it expect */
-
-import ParameterExpression from './ParameterExpression';
-import LambdaExpression from './LambdaExpression';
+import { ParameterExpression } from './ParameterExpression';
+import { LambdaExpression } from './LambdaExpression';
 
 it('should serialize to json', () => {
   const p0 = new ParameterExpression(0);
@@ -11,11 +9,11 @@ it('should serialize to json', () => {
     type: 'lambda',
     parameters: [{
       type: 'parameter',
-      name: 0,
+      position: 0,
     }],
     body: {
       type: 'parameter',
-      name: 0,
+      position: 0,
     },
   });
 });

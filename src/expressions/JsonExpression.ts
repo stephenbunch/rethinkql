@@ -1,5 +1,9 @@
-export default class JsonExpression {
-  constructor(json) {
+import { IExpression } from './IExpression';
+
+export class JsonExpression implements IExpression {
+  value: Object;
+
+  constructor(json: Object) {
     this.value = json;
   }
 

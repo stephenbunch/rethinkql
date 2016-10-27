@@ -1,8 +1,6 @@
-/* global it expect */
-
-import JsonExpression from './JsonExpression';
-import MethodCallExpression from './MethodCallExpression';
-import UndefinedExpression from './UndefinedExpression';
+import { JsonExpression } from './JsonExpression';
+import { MethodCallExpression } from './MethodCallExpression';
+import { UndefinedExpression } from './UndefinedExpression';
 
 it('should serialize to json', () => {
   const arg0 = new JsonExpression('hello');

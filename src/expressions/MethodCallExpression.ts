@@ -1,5 +1,11 @@
-export default class MethodCallExpression {
-  constructor(name, thisArg, args) {
+import { IExpression } from './IExpression';
+
+export class MethodCallExpression implements IExpression {
+  name: string;
+  thisArg: IExpression;
+  arguments: IExpression[];
+
+  constructor(name: string, thisArg: IExpression, args: IExpression[]) {
     this.name = name;
     this.thisArg = thisArg;
     this.arguments = args;
@@ -14,8 +20,9 @@ export default class MethodCallExpression {
     };
   }
 
-  evaluate(context) {
-    return context[this.name].apply(
+  evaluate(context: Object) {
+    const func = context[this.name] as () => any;
+    return func.apply(
       this.thisArg.evaluate(context),
       this.arguments.map(argument => argument.evaluate(context))
     );
