@@ -20,10 +20,10 @@ export class SequenceExpression implements IExpression {
     return this.sequence.evaluate(context);
   }
 
-  map<T extends IExpression>(callback: (datum: DatumExpression) => T): SequenceExpression {
+  map<T extends IExpression>(transform: (datum: DatumExpression) => T): SequenceExpression {
     const datum = new DatumExpression(new ParameterExpression(0));
     const parameters = [];
-    const body = callback(datum);
+    const body = transform(datum);
     return new SequenceExpression(
       new CallExpression(new MemberExpression(this.sequence, 'map'), [new LambdaExpression([datum], body)]) 
     );
