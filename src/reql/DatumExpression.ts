@@ -1,10 +1,15 @@
-import { ParameterExpression } from '../expressions/ParameterExpression';
-import { MemberExpression } from '../expressions/MemberExpression';
-import { CallExpression } from '../expressions/CallExpression';
-import { JsonExpression } from '../expressions/JsonExpression';
+import { IParameterExpression } from '../expressions/ParameterExpression';
+import { ValueExpression } from './ValueExpression';
 
-export class DatumExpression extends ParameterExpression {
-  add(...args: number[]) {
-    return new CallExpression(new MemberExpression(this, 'add'), args.map(arg => new JsonExpression(arg)));
+export class DatumExpression extends ValueExpression implements IParameterExpression {
+  parameter: IParameterExpression;
+
+  constructor(parameter: IParameterExpression) {
+    super(parameter);
+    this.parameter = parameter;
+  }
+
+  get position() {
+    return this.parameter.position;
   }
 }

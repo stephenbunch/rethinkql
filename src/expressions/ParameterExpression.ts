@@ -1,6 +1,10 @@
 import { IExpression } from './IExpression';
 
-export class ParameterExpression implements IExpression {
+export interface IParameterExpression extends IExpression {
+  readonly position: number;
+}
+
+export class ParameterExpression implements IParameterExpression {
   position: number;
 
   constructor(position: number) {

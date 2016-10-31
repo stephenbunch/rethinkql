@@ -1,13 +1,13 @@
 import { IExpression } from './IExpression';
-import { ParameterExpression } from './ParameterExpression';
+import { IParameterExpression } from './ParameterExpression';
 
 const wrappers = {};
 
 export class LambdaExpression implements IExpression {
-  parameters: ParameterExpression[];
+  parameters: IParameterExpression[];
   body: IExpression;
 
-  constructor(parameters: ParameterExpression[], body: IExpression) {
+  constructor(parameters: IParameterExpression[], body: IExpression) {
     this.parameters = parameters;
     this.body = body;
   }

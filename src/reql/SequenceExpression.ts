@@ -13,10 +13,7 @@ export class SequenceExpression implements IExpression {
   }
 
   toJSON() {
-    return {
-      type: 'sequence',
-      sequence: this.sequence.toJSON(),
-    };
+    return this.sequence.toJSON();
   }
 
   evaluate(context) {
@@ -24,7 +21,7 @@ export class SequenceExpression implements IExpression {
   }
 
   map<T extends IExpression>(callback: (datum: DatumExpression) => T): SequenceExpression {
-    const datum = new DatumExpression(0);
+    const datum = new DatumExpression(new ParameterExpression(0));
     const parameters = [];
     const body = callback(datum);
     return new SequenceExpression(
