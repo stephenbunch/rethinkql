@@ -1,20 +1,24 @@
 import { IExpression } from './IExpression';
 
 export class JsonExpression implements IExpression {
-  value: Object;
+  value: any;
 
-  constructor(json: Object) {
+  constructor(json: any) {
     this.value = json;
   }
 
   toJSON() {
+    let value = this.value;
+    if (value && typeof value.toJSON === 'function') {
+      value = value.toJSON();
+    }
     return {
       type: 'json',
-      value: this.value,
+      value,
     };
   }
 
-  evaluate() {
+  evaluate(context = {}) {
     return this.value;
   }
 }
