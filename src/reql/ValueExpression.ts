@@ -10,12 +10,6 @@ export default class ValueExpression implements IExpression {
 
   constructor(value: IExpression) {
     this.value = value
-    return new Proxy(this, {
-      get: (target, property) =>
-        target[property] !== undefined ?
-        target[property] :
-        new ValueExpression(e.call(target, [e.json(property)]))
-    })
   }
 
   toJSON() {
@@ -24,6 +18,14 @@ export default class ValueExpression implements IExpression {
 
   evaluate(context = {}) {
     return this.value.evaluate(context)
+  }
+
+  get(...keys: (string | number)[]): ValueExpression {
+    let result: ValueExpression = this
+    for (const key of keys) {
+      result = new ValueExpression(e.call(result, [e.json(key)]))
+    }
+    return result
   }
 
   add(...args: number[]): ValueExpression {
@@ -38,6 +40,6 @@ export default class ValueExpression implements IExpression {
   }
 
   pluck(...selectors: Selector[]): ValueExpression {
-    return new ValueExpression((e.call(e.member(this, 'pluck'), [e.json(selectors)])))
+    return new ValueExpression((e.call(e.member(this, 'pluck'), selectors.map(selector => e.json(selector)))))
   }
 }
