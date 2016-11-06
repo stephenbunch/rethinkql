@@ -1,7 +1,7 @@
 {
   "name": "rxql",
   "version": "0.1.0",
-  "description": "Observable queries.",
+  "description": "Observable query language.",
   "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf lib && tsc --outDir lib --declaration --sourceMap",
