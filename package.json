@@ -1,5 +1,5 @@
 {
-  "name": "rethinkql",
+  "name": "rxql",
   "version": "0.1.0",
   "description": "Observable queries.",
   "main": "lib/index.js",
@@ -9,7 +9,7 @@
     "test": "mocha test/**/*.spec.js"
   },
   "repository": {
-    "url": "https://github.com/stephenbunch/rethinkql",
+    "url": "https://github.com/stephenbunch/rxql",
     "type": "git"
   },
   "author": "Stephen Bunch",
