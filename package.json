@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rm -rf lib && tsc --outDir lib --declaration --sourceMap",
     "pretest": "rm -rf test && tsc --outDir test --module commonjs",
-    "test": "mocha test/**/*.spec.js"
+    "test": "mocha test/**/*.spec.js",
+    "test-debug": "mocha test/**/*.spec.js --debug-brk"
   },
   "repository": {
     "url": "https://github.com/stephenbunch/rxql",

@@ -1,14 +1,9 @@
-import { expect } from 'chai';
-import { LambdaExpression } from './LambdaExpression';
-import { ParameterExpression } from './ParameterExpression';
-import { CallExpression } from './CallExpression';
-import { MemberExpression } from './MemberExpression';
-import { JsonExpression } from './JsonExpression';
+import { expect } from 'chai'
+import * as e from './'
 
 it('should evaluate', () => {
-  const p0 = new ParameterExpression(0);
-  const call = new CallExpression(new MemberExpression(p0, 'foo'), [new JsonExpression(3)]);
-  const func = new LambdaExpression([p0], call);
-  const result = func.evaluate()({ foo: x => x * x });
-  expect(result).to.equal(9);
-});
+  const p0 = e.parameter(0)
+  const func = e.lambda([p0], e.call(e.member(p0, 'foo'), [e.json(3)]))
+  const result = func.evaluate()({ foo: x => x * x })
+  expect(result).to.equal(9)
+})

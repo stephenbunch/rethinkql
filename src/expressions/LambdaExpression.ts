@@ -1,15 +1,15 @@
-import { IExpression } from './IExpression';
-import { IParameterExpression } from './ParameterExpression';
+import { IExpression } from './IExpression'
+import { IParameterExpression } from './ParameterExpression'
 
-const wrappers = {};
+const wrappers = {}
 
-export class LambdaExpression implements IExpression {
-  parameters: IParameterExpression[];
-  body: IExpression;
+export default class LambdaExpression implements IExpression {
+  parameters: IParameterExpression[]
+  body: IExpression
 
   constructor(parameters: IParameterExpression[], body: IExpression) {
-    this.parameters = parameters;
-    this.body = body;
+    this.parameters = parameters
+    this.body = body
   }
 
   toJSON() {
@@ -17,15 +17,15 @@ export class LambdaExpression implements IExpression {
       type: 'lambda',
       parameters: this.parameters.map(parameter => parameter.toJSON()),
       body: this.body.toJSON(),
-    };
+    }
   }
 
   evaluate(context = {}) {
     if (!wrappers[this.parameters.length]) {
-      const params = Array(this.parameters.length + 1).join(', _').substr(2);
-      wrappers[this.parameters.length] = new Function('fn', `return function(${params}){return fn.apply(this, arguments)}`);
+      const params = Array(this.parameters.length + 1).join(', _').substr(2)
+      wrappers[this.parameters.length] = new Function('fn', `return function(${params}){return fn.apply(this, arguments)}`)
     }
-    const wrapper = wrappers[this.parameters.length];
+    const wrapper = wrappers[this.parameters.length]
     return wrapper((...args: any[]) =>
       this.body.evaluate(
         this.parameters.reduce(
@@ -35,6 +35,6 @@ export class LambdaExpression implements IExpression {
           context
         )
       )
-    );
+    )
   }
 }

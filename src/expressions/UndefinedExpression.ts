@@ -1,13 +1,13 @@
-import { IExpression } from './IExpression';
+import { IExpression } from './IExpression'
 
-export class UndefinedExpression implements IExpression {
+export default class UndefinedExpression implements IExpression {
   toJSON() {
     return {
       type: 'undefined',
-    };
+    }
   }
 
   evaluate() {
-    return undefined;
+    return undefined
   }
 }

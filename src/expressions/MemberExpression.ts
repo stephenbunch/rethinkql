@@ -1,12 +1,12 @@
-import { IExpression } from './IExpression';
+import { IExpression } from './IExpression'
 
-export class MemberExpression implements IExpression {
-  object: IExpression;
-  member: string;
+export default class MemberExpression implements IExpression {
+  object: IExpression
+  member: string
 
   constructor(object: IExpression, member: string) {
-    this.object = object;
-    this.member = member;
+    this.object = object
+    this.member = member
   }
 
   toJSON() {
@@ -14,15 +14,15 @@ export class MemberExpression implements IExpression {
       type: 'member',
       object: this.object.toJSON(),
       member: this.member,
-    };
+    }
   }
 
   evaluate(context = {}) {
-    const object = this.object.evaluate(context);
-    const member = object[this.member];
+    const object = this.object.evaluate(context)
+    const member = object[this.member]
     if (typeof member === 'function') {
-      return member.bind(object);
+      return member.bind(object)
     }
-    return member;
+    return member
   }
 }

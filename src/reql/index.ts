@@ -1,10 +1,6 @@
-import { VariableExpression } from '../expressions/VariableExpression';
-import { MemberExpression } from '../expressions/MemberExpression';
-import { CallExpression } from '../expressions/CallExpression';
-import { JsonExpression } from '../expressions/JsonExpression';
-import { SequenceExpression } from './SequenceExpression';
+import * as e from '../expressions'
 
-export const r = {
-  table: (name: string) => new SequenceExpression(new CallExpression(new MemberExpression(new VariableExpression('r'), 'table'), [new JsonExpression(name)])),
-  expr: json => new CallExpression(new MemberExpression(new VariableExpression('r'), 'table'), [new JsonExpression(json)])
-};
+import TableExpression from './TableExpression'
+
+export const table = (name: string) => new TableExpression(name)
+export const expr = json => e.call(e.member(e.variable('r'), 'table'), [e.json(json)]) 
