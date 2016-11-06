@@ -1,4 +1,4 @@
-# RethinkQL
+# RxQL
 
 GraphQL is good at recursively resolving a query.
 ReQL is good at defining queries.
