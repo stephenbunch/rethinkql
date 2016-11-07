@@ -3,7 +3,7 @@ Inspired by a lot of things, but namely GraphQL, Horizon, Entity Framework and L
 
 ### Objectives
 * Isomorphic client query subscriptions.
-* Native RPC style method calls.
+* RPC style method calls.
 * Describe queries using ReQL like syntax.
 * Use TypeScript.
 
