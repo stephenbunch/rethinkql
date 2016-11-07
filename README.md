@@ -26,11 +26,12 @@ const db = new RethinkDBContext({
 
 // A context is where all queries are built.
 // Queries can be serialized or observed directly.
-const context = new QueryContext({
+const r = new QueryContext({
   transport: new RethinkDBTransport(db)
 })
 
-const User = context.r.table('users')
+// Define the root node for selecting users.
+const User = r.table('users')
 
 // A schema is used to resolve queries, just like in GraphQL.
 const schema = new Schema({
@@ -56,15 +57,15 @@ import { HttpTransport } from 'rxql/client'
 import { toPromise } from 'rxjs/operator/toPromise'
 
 // Create a new context for building queries.
-const context = new QueryContext({
+const r = new QueryContext({
   transport: new HttpTransport('/api')
 })
 
 // Define the root node for selecting users.
-const User = context.r.table('users')
+const User = r.table('users')
 
 // Define an action for updating a user.
-const patchUser = context.r.action('patchUser')
+const patchUser = r.action('patchUser')
 
 // Create a new query and subscribe to it.
 const query = User.get(42).pluck('id', 'name', 'image')
