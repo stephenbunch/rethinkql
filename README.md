@@ -14,9 +14,9 @@ Inspired by a lot of things, but namely GraphQL, Horizon, Entity Framework and L
 import express from 'express'
 import { QueryContext, Schema } from 'rxql'
 import r from 'rethinkdb'
-import { RethinkDBConnection, RethinkDBTransport, createExpressMiddleware } from 'rxql/server'
+import { RethinkDBContext, RethinkDBTransport, createExpressMiddleware } from 'rxql/server'
 
-// Create a new connection to the RethinkDB server.
+// Create a new RethinkDB context.
 const db = new RethinkDBContext({
   port: 28015,
   host: 'localhost',
