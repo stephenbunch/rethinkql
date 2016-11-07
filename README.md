@@ -1,6 +1,7 @@
 # RxQL
+Inspired by a lot of things, but namely GraphQL, Horizon, Entity Framework and Linq. 
 
-## Objectives
+### Objectives
 * Isomorphic client query subscriptions.
 * Native RPC style method calls.
 * Describe queries using ReQL like syntax.
@@ -10,34 +11,35 @@
 
 ### Server
 ```js
-import express from 'express';
-import { RxQLClient } from 'rxql'
-import { RethinkDbTransport, createExpressMiddleware } from 'rxql/server';
+import express from 'express'
+import { RxQLContext } from 'rxql'
+import { RethinkDBTransport, createExpressMiddleware } from 'rxql/server'
 
-const client = new RxQLClient({
-  transport: new RethinkDbTransport({
+const context = new RxQLContext({
+  transport: new RethinkDBTransport({
     port: 28015,
     host: 'localhost',
     db: 'dev',
   })
 })
 
-const User = client.r.table('users')
+const User = context.r.table('users')
 
 const app = express();
-app.use('/api', createExpressMiddleware(client))
+app.use('/api', createExpressMiddleware(context))
 ```
 
 ### Client
 ```js
-import { RxQLClient } from 'rxql'
+import { RxQLContext } from 'rxql'
 import { HttpTransport } from 'rxql/client'
 import { toPromise } from 'rxjs/operator/toPromise'
 
-const client = new RxQLClient({
+const context = new RxQLContext({
   transport: new HttpTransport('/api')
 })
-const User = client.r.table('users')
+
+const User = context.r.table('users')
 
 const query = User.get(42).pluck('id', 'first_name')
 const subscription = query.subscribe(user => {
