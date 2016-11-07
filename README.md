@@ -51,7 +51,7 @@ app.listen(3000)
 ### Client
 ```js
 import { QueryContext } from 'rxql'
-import { HttpTransport, ClientContext } from 'rxql/client'
+import { HttpTransport } from 'rxql/client'
 import { toPromise } from 'rxjs/operator/toPromise'
 
 // Create a new context for building queries.
