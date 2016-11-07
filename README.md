@@ -14,7 +14,7 @@ Inspired by a lot of things, but namely GraphQL, Horizon, Entity Framework and L
 import express from 'express'
 import r from 'rethinkdb'
 import { QueryContext, Schema } from 'rxql'
-import { createExpressMiddleware } from 'rxql/server'
+import { createExpressMiddleware } from 'rxql/express'
 import { RethinkDBContext, RethinkDBTransport } from 'rxql/rethinkdb'
 
 // Create a new RethinkDB context.
@@ -53,12 +53,12 @@ app.listen(3000)
 ### Client
 ```js
 import { QueryContext } from 'rxql'
-import { HttpTransport } from 'rxql/client'
+import { TcpTransport, HttpDialect } from 'rxql/http'
 import { toPromise } from 'rxjs/operator/toPromise'
 
 // Create a new context for building queries.
 const r = new QueryContext({
-  transport: new HttpTransport('/api')
+  transport: new TcpTransport(new HttpDialect('/api'))
 })
 
 // Define the root node for selecting users.
