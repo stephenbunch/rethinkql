@@ -1,6 +1,6 @@
 # RxQL
 
-Objectives
+## Objectives
 * Isomorphic client query subscriptions.
 * Native RPC style method calls.
 * Describe queries using ReQL like syntax.
