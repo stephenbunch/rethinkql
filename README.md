@@ -1,12 +1,6 @@
 # RxQL
 
-GraphQL is good at recursively resolving a query.
-ReQL is good at defining queries.
-RethinkDB supports changefeeds on tables.
-Observables provide a common interface for subscribing to a value.
-
-Goals
-* Generate a GraphQL and/or REST api from the schema.
+Objectives
 * Isomorphic client query subscriptions.
 * Native RPC style method calls.
 * Describe queries using ReQL like syntax.
@@ -17,38 +11,42 @@ Goals
 ### Server
 ```js
 import express from 'express';
-import createRethinkQLMiddleware from 'express-rethinkql';
+import { RxQLClient } from 'rxql'
+import { RethinkDbTransport, createExpressMiddleware } from 'rxql/server';
 
-const getUser = id => r.table('users').get(id);
-const MySchema = {
-  users: NodeList()
-}
+const client = new RxQLClient({
+  transport: new RethinkDbTransport({
+    port: 28015,
+    host: 'localhost',
+    db: 'dev',
+  })
+})
 
+const User = client.r.table('users')
 
 const app = express();
-app.use('/rethinkql', createRethinkQLMiddleware({
-  schema: MySchema,
-  graphiql: true
-}));
+app.use('/api', createExpressMiddleware(client))
 ```
 
 ### Client
-
 ```js
+import { RxQLClient } from 'rxql'
+import { HttpTransport } from 'rxql/client'
+import { toPromise } from 'rxjs/operator/toPromise'
 
-const stream = query(User.get(42).pluck('id', 'first_name'));
-const subscription = stream.subscribe(user => {
-  console.log(user);
-});
-// { id: 42, first_name: 'Larry' }
+const client = new RxQLClient({
+  transport: new HttpTransport('/api')
+})
+const User = client.r.table('users')
 
-client.do(User.get(42).update({ first_name: 'Bob' }));
-// { id: 42, first_name: 'Bob' }
+const query = User.get(42).pluck('id', 'first_name')
+const subscription = query.subscribe(user => {
+  console.log(user)
+})
+// { id: 42, name: 'Larry', image: '/user_images/42.png' }
 
-subscription.unsubscribe();
+await User.get(42).update({ name: 'Bob', image: input.files[0] })::toPromise()
+// { id: 42, name: 'Bob', image: '/user_images/42.png }
+
+subscription.unsubscribe()
 ```
-
-## Nodes
-## Operators
-## Actions
-## Queries
